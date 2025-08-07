@@ -122,7 +122,7 @@ export default function ContactPage() {
       >
         <h1 className="text-4xl md:text-6xl font-headline font-bold text-primary">Contact Us</h1>
         <p className="mt-4 text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
-          Have a question or a custom request? <br />Fill out the form below or reach out to us through our contact details.
+          Have a question or a any request for new developemnt? <br />Fill out this form below or reach out to us through our contact details.
         </p>
       </motion.div>
     </section>
