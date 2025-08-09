@@ -22,8 +22,8 @@ const footerSections = [
         title: 'Contact Us',
         content: (
             <>
-                <p className='flex flex-row items-center'><FaPhone /> &nbsp; +91 908 183 3533</p>
-                <p className='flex flex-row items-center'><FaEnvelope /> &nbsp; sales@r-3.in</p>
+                <p className='flex flex-row items-center'><FaPhone /> &nbsp; <a href="tel:+919081833533" className="text-sm hover:text-primary transition-colors">+91 908 183 3533</a></p>
+                <p className='flex flex-row items-center'><FaEnvelope /> &nbsp;<a href="mailto:sales@r-3.in" className="text-sm  hover:text-primary transition-colors">sales@r-3.in</a></p>
             </>
         ),
     },
@@ -57,7 +57,7 @@ const socialLinks = [
     { icon: <Instagram />, href: 'https://www.instagram.com/r_3hardware?igsh=MTN3MjNrdTc1ejAxZQ%3D%3D&utm_source=qr', name: 'Instagram' },
     { icon: <FaWhatsapp />, href: 'https://wa.me/9081833533?text=Hello%20Team,%20R-3%20Hardware', name: 'Whatsapp' },
     { icon: <Linkedin />, href: 'https://www.linkedin.com/company/r-3-hardware/', name: 'LinkedIn' },
-    { icon: <FaPinterestP />, href: 'https://www.linkedin.com/company/r-3-hardware/', name: 'LinkedIn' },
+    { icon: <FaPinterestP />, href: 'https://in.pinterest.com/R_3Hardware/', name: 'Pinterest' },
 ]
 
 export function Footer() {

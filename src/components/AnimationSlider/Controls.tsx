@@ -59,7 +59,7 @@ function Controls({
 
   const startAutoplay = () => {
     autoplayRef.current = setInterval(() => {
-      // document.getElementById('next-slide')?.click()
+      document.getElementById('next-slide')?.click()
     }, 2000);
   };
 

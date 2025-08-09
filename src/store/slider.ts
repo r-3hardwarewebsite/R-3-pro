@@ -18,7 +18,7 @@ export const initialSliderItems = [
     },
     {
         id: 3,
-        image: "/img/slider/3.png",
+        image: "/img/slider/3.webp",
         dataAiHint: "designer door handle",
         title: "Lock Body & Cylinder",
         description: "Elevate your home with our collection of unique door knobs and handles.",
@@ -55,7 +55,7 @@ export const sliderData = [
         buttonText: "Explore Our Collections"
     },
     {
-        img: "/img/slider/3.png",
+        img: "/img/slider/3.webp",
         title: "Lock Body",
         subtitle: "Cylinder",
         description: "Elevate your home with our collection of unique door knobs and handles.",

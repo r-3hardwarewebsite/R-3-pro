@@ -69,7 +69,7 @@ export default function RootLayout({
             <Toaster />
           </CurrencyProvider>
         </ThemeProvider>
-        {/* <DisableDevTools /> */}
+        <DisableDevTools />
       </body>
     </html>
   );

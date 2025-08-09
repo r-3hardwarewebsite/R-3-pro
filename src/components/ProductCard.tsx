@@ -145,7 +145,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
           <div className="p-4 flex flex-col flex-grow">
             <h3 className="font-headline text-lg font-semibold text-primary truncate">{product.name}</h3>
-            <p className="text-sm text-muted-foreground mt-1">{product.category}</p>
+            {/* <p className="text-sm text-muted-foreground mt-1">{product.category}</p> */}
 
             {product.tags && product.tags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">

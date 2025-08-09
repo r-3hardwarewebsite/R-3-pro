@@ -131,8 +131,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             <Link href="/" className="hover:text-primary">Home</Link>
             <ChevronRight className="h-4 w-4 mx-1" />
             <Link href="/products" className="hover:text-primary">Products</Link>
-            <ChevronRight className="h-4 w-4 mx-1" />
-            <span className="text-foreground">{category.name}</span>
+            {/* <ChevronRight className="h-4 w-4 mx-1" /> */}
+            {/* <span className="text-foreground">{category.name}</span> */}
             {subcategoryParam && activeSubcategory && (
               <>
                 <ChevronRight className="h-4 w-4 mx-1" />
