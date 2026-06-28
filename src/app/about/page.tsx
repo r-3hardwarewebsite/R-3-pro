@@ -102,7 +102,7 @@ const AboutPage = () => {
           <div className="w-full md:w-1/2">
             <h2 className='text-4xl md:text-5xl font-medium font-headline text-primary mb-4'>Match Quality Expectation</h2>
             <p className="mb-6 text-muted-foreground" style={{ lineHeight: '30px'}}>
-              At R-3 Hardware, meeting customer quality expectations isn't just a goal — it's our foundation. Every product, from door mortise handles to cabinet knobs, is crafted with precision, durability, and consistency in mind. We follow strict quality control processes to ensure each piece reflects international standards. Our team listens, adapts, and delivers exactly what customers expect — and often, more.
+              At R-3 Hardware, meeting customer quality expectations isn&apos;t just a goal — it&apos;s our foundation. Every product, from door mortise handles to cabinet knobs, is crafted with precision, durability, and consistency in mind. We follow strict quality control processes to ensure each piece reflects international standards. Our team listens, adapts, and delivers exactly what customers expect — and often, more.
             </p>
             <Button variant="outline">Sustainability</Button>
           </div>
@@ -118,7 +118,7 @@ const AboutPage = () => {
         variants={sectionVariants}
       >
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-headline text-primary">Let's go through our portfolio</h2>
+          <h2 className="text-3xl md:text-4xl font-headline text-primary">Let&apos;s go through our portfolio</h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             Send a request to get a portfolio and our one of the expert will be get in touch with you
           </p>

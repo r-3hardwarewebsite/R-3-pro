@@ -20,6 +20,8 @@ import { Faq } from '@/components/Faq';
 import AnimationSlider from '@/components/AnimationSlider';
 import Autoplay from "embla-carousel-autoplay";
 
+const testimonialAutoplay = Autoplay({ delay: 3000, stopOnInteraction: true });
+
 
 const testimonials = [
   {
@@ -188,7 +190,6 @@ const InspirationSection = () => {
 
 export default function Home() {
   const featureProducts = getFeatureProducts()
-  const autoplay = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -366,9 +367,9 @@ export default function Home() {
             </p>
           </div>
           <Carousel
-            plugins={[autoplay.current]}
-            onMouseEnter={autoplay.current.stop}
-            onMouseLeave={autoplay.current.reset}
+            plugins={[testimonialAutoplay]}
+            onMouseEnter={testimonialAutoplay.stop}
+            onMouseLeave={testimonialAutoplay.reset}
             opts={{
               align: "start",
               loop: true,
@@ -382,7 +383,7 @@ export default function Home() {
                     <Card className="bg-background/50 border-border/50 h-full">
                       <CardContent className="flex flex-col items-center justify-center p-8 text-center h-full min-h-[280px]">
                         <Quote className="w-12 h-12 text-primary/50 mb-4" />
-                        <p className="text-lg italic text-foreground/90 flex-grow whitespace-normal">"{testimonial.quote}"</p>
+                        <p className="text-lg italic text-foreground/90 flex-grow whitespace-normal">&ldquo;{testimonial.quote}&rdquo;</p>
                         <div className="mt-6">
                           <p className="font-semibold text-accent">{testimonial.author}</p>
                           <p className="text-sm text-muted-foreground">{testimonial.title}</p>

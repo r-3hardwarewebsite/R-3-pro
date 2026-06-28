@@ -50,7 +50,7 @@ export async function handleContactForm(values: z.infer<typeof formSchema>) {
   try {
     await transporter.sendMail(mailOptions);
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Nodemailer error:", error);
     return {
       success: false,

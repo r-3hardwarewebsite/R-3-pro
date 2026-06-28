@@ -7,7 +7,7 @@ import { Card, CardContent } from './ui/card';
 import type { Product } from '@/lib/products';
 import { Button } from './ui/button';
 import { Eye, Loader2 } from 'lucide-react';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -29,21 +29,21 @@ export function ProductCard({ product }: ProductCardProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const autoplay = useRef(
+  const [autoplayPlugin] = useState(() =>
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
   const hasMultipleImages = product.images.length > 1;
 
   const handleMouseEnter = () => {
-    if (hasMultipleImages && autoplay.current) {
-      autoplay.current.play();
+    if (hasMultipleImages) {
+      autoplayPlugin.play();
     }
   };
 
   const handleMouseLeave = () => {
-    if (hasMultipleImages && autoplay.current) {
-      autoplay.current.stop();
+    if (hasMultipleImages) {
+      autoplayPlugin.stop();
     }
   };
 
@@ -59,11 +59,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
     // Stop autoplay initially when the component mounts
     if (hasMultipleImages) {
-      autoplay.current.stop();
+      autoplayPlugin.stop();
     }
 
     const onSelect = (api: CarouselApi) => {
-      setCurrent(api?.selectedScrollSnap());
+      setCurrent(api?.selectedScrollSnap() ?? 0);
     };
 
     api.on("select", onSelect);
@@ -95,7 +95,7 @@ export function ProductCard({ product }: ProductCardProps) {
             {hasMultipleImages ? (
               <Carousel
                 setApi={setApi}
-                plugins={[autoplay.current]}
+                plugins={[autoplayPlugin]}
                 className="w-full h-full"
               >
                 <CarouselContent>

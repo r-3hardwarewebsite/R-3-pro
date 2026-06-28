@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
@@ -113,11 +113,11 @@ export function Header() {
   const isProductsActive = pathname.startsWith('/products');
   const { setTheme, theme } = useTheme();
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const isClient = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({

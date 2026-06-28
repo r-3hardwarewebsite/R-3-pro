@@ -55,7 +55,7 @@ const MaintenancePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            Our team is working hard to bring you this new feature. Please check back soon to see what we've been up to!
+            Our team is working hard to bring you this new feature. Please check back soon to see what we&apos;ve been up to!
           </motion.p>
         </div>
       </section>

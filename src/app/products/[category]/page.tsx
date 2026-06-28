@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
-import { getCategory, getProductsBySubcategory, Product, Subcategory, getProductsByCategory, Category } from '@/lib/products';
+import { useState, useEffect, useMemo } from 'react';
+import { getCategory, getProductsBySubcategory, Product, getProductsByCategory } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
 import { notFound, useSearchParams, useRouter, usePathname, useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -30,43 +30,38 @@ export default function CategoryPage() {
   const tagsParam = searchParams.get('tags');
   const tabParam = searchParams.get('tab');
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const category = getCategory(categorySlug);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [layout, setLayout] = useState<'grid' | 'list'>('grid');
-  const [category, setCategory] = useState<Category | null | undefined>(undefined);
 
   const selectedTags = tagsParam ? tagsParam.split(',') : [];
 
-  useEffect(() => {
-    const categoryData = getCategory(categorySlug);
-    setCategory(categoryData);
+  const products = useMemo(() => {
+    if (!category) return [];
 
-    if (categoryData) {
-      let filteredProducts: Product[];
-      if (subcategoryParam) {
-        filteredProducts = getProductsBySubcategory(categoryData.slug, subcategoryParam);
-      } else {
-        filteredProducts = getProductsByCategory(categoryData.slug);
-      }
-
-      if (tabParam) {
-        filteredProducts = filteredProducts.filter(p => p.tabs?.some(t => t.slug === tabParam));
-      }
-
-      if (selectedTags.length > 0) {
-        filteredProducts = filteredProducts.filter(p =>
-          p.tags?.some(t => selectedTags.includes(t.slug))
-        );
-      }
-
-      setProducts(filteredProducts);
+    let filteredProducts: Product[];
+    if (subcategoryParam) {
+      filteredProducts = getProductsBySubcategory(category.slug, subcategoryParam);
+    } else {
+      filteredProducts = getProductsByCategory(category.slug);
     }
-  }, [categorySlug, subcategoryParam, tagsParam, tabParam]);
 
+    if (tabParam) {
+      filteredProducts = filteredProducts.filter(p => p.tabs?.some(t => t.slug === tabParam));
+    }
 
-  if (category === undefined) {
-    return null; // or a loading spinner
-  }
+    if (selectedTags.length > 0) {
+      filteredProducts = filteredProducts.filter(p =>
+        p.tags?.some(t => selectedTags.includes(t.slug))
+      );
+    }
+
+    return filteredProducts;
+  }, [category, subcategoryParam, tabParam, tagsParam, selectedTags]);
+
+  useEffect(() => {
+    document.title = "Products | R-3";
+  }, []);
 
   if (!category) {
     notFound();
@@ -95,8 +90,6 @@ export default function CategoryPage() {
   };
 
   const tabs = activeSubcategory?.tabs || [];
-
-  document.title = "Products | R-3"
 
   return (
     <div className='bg-[#211e1ec7]'>

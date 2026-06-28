@@ -15,7 +15,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { ChevronRight, Loader2 } from 'lucide-react';
 import { ProductCard } from '@/components/ProductCard';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { PriceDisplay } from '@/components/PriceDisplay';
@@ -29,10 +29,6 @@ const ThumbnailItem = ({ src, alt, dataAiHint, isActive, onClick }: { src: strin
   const handleError = () => {
     setImgSrc('https://placehold.co/400x400.png');
   };
-
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
 
   return (
     <div
@@ -68,10 +64,6 @@ const CarouselImage = ({ src, alt, dataAiHint, isPriority, onLoadingComplete }: 
     setImgSrc('https://placehold.co/600x600.png');
   };
 
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
-
   return (
     <Image
       src={imgSrc}
@@ -89,27 +81,18 @@ const CarouselImage = ({ src, alt, dataAiHint, isPriority, onLoadingComplete }: 
 export default function ProductPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const [product, setProduct] = useState<Product | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const product = getProduct(slug);
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    return getProductsByCategory(product.categorySlug)
+      .filter((p) => p.slug !== product.slug)
+      .slice(0, 3);
+  }, [product]);
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbApi, setThumbApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
-  const [bannerImgSrc, setBannerImgSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    const productData = getProduct(slug);
-    if (productData) {
-      setProduct(productData);
-      setBannerImgSrc(productData.images[0]);
-      const related = getProductsByCategory(productData.categorySlug)
-        .filter((p) => p.slug !== productData.slug)
-        .slice(0, 3);
-      setRelatedProducts(related);
-    }
-    setLoading(false);
-  }, [slug]);
+  const [bannerError, setBannerError] = useState(false);
 
   useEffect(() => {
     if (!mainApi || !thumbApi) {
@@ -136,26 +119,22 @@ export default function ProductPage() {
 
   useEffect(() => {
     if(product) {
-      document.title = `${product?.name} | R-3`
+      document.title = `${product.name} | R-3`
     } else {
       document.title = `Product | R-3`
     }
   },[product])
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-12 flex justify-center items-center h-[60vh]">
-        <Loader2 className="h-16 w-16 animate-spin text-primary" />
-      </div>
-    );
-  }
-
   if (!product) {
     return notFound();
   }
 
+  const bannerImgSrc = bannerError
+    ? 'https://placehold.co/1200x600.png'
+    : product.images[0];
+
   const handleBannerError = () => {
-    setBannerImgSrc('https://placehold.co/1200x600.png')
+    setBannerError(true);
   }
 
   return (
@@ -230,11 +209,12 @@ export default function ProductPage() {
                 ))}
               </CarouselContent>
             </Carousel>
-            <Carousel setApi={thumbApi} opts={{ align: "start", slidesToScroll: 1, skipSnaps: true, containScroll: 'trimSnaps' }} className="w-full mt-4">
+            <Carousel setApi={setThumbApi} opts={{ align: "start", slidesToScroll: 1, skipSnaps: true, containScroll: 'trimSnaps' }} className="w-full mt-4">
               <CarouselContent className="-ml-2 h-full">
                 {product.images.map((src, index) => (
-                  <CarouselItem key={index} className="pl-2 basis-1/4">
+                  <CarouselItem key={src} className="pl-2 basis-1/4">
                     <ThumbnailItem
+                      key={src}
                       src={src}
                       alt={`${product.name} thumbnail ${index + 1}`}
                       dataAiHint={product.dataAiHint}

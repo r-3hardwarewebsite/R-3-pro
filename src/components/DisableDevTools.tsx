@@ -34,7 +34,7 @@ export default function DisableDevTools() {
                 }
             };
 
-            let interval = setInterval(check, 1000);
+            const interval = setInterval(check, 1000);
             return () => clearInterval(interval);
         };
 

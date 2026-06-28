@@ -35,7 +35,7 @@ const TextAnimator = ({ children }: { children: React.ReactNode }) => {
                     Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2)
                 );
 
-                let fontWeight =
+                const fontWeight =
                     distance < MAX_DISTANCE
                         ? gsap.utils.mapRange(
                             0,

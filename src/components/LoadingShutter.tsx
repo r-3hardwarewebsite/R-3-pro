@@ -6,14 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 export function LoadingShutter() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return !sessionStorage.getItem("wasLoaded");
+  });
 
   useEffect(() => {
-    const wasLoaded = sessionStorage.getItem("wasLoaded");
-    if (wasLoaded) {
-      setLoading(false);
-      return;
-    }
+    if (!loading) return;
 
     document.body.style.overflow = 'hidden';
     const timer = setTimeout(() => {
@@ -22,7 +21,7 @@ export function LoadingShutter() {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [loading]);
 
   const shutterVariants = {
     initial: { opacity: 1 },

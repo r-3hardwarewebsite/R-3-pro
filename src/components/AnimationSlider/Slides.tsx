@@ -4,7 +4,7 @@ import SliderCard from "./SliderCard";
 
 type Props = {
   data: Data[];
-  handleData: any;
+  handleData: (ix: number) => void;
 };
 
 function Slides({ data, handleData }: Props) {

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Data, CurrentSlideData } from "@/components/AnimationSlider";
 import { Loader2 } from "lucide-react";
@@ -12,10 +12,6 @@ type Props = {
 
 function BackgroundImage({ transitionData, currentSlideData }: Props) {
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-  }, [currentSlideData.data.img, transitionData?.img]);
 
   return (
     <>

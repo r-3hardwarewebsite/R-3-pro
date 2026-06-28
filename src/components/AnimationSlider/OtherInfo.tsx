@@ -1,9 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TextAnimator from "../TextAnimator";
+import type { Data } from "@/components/AnimationSlider";
 
 type Props = {
-  data: any;
+  data: Data;
 };
 const item = {
   hidden: {

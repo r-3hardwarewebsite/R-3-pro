@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 import BackgroundImage from "@/components/AnimationSlider/BackgroundImage";
 import Slides from "@/components/AnimationSlider/Slides";
 import SlideInfo from "@/components/AnimationSlider/SlideInfo";
@@ -33,7 +33,7 @@ export default function AnimationSlider() {
             index: 0,
         });
 
-    const changeSlide = (ix: any) => {
+    const changeSlide = (_ix: number) => {
         // clicked slide index = ix
     };
 
@@ -41,6 +41,7 @@ export default function AnimationSlider() {
         <main className={`relative min-h-screen select-none overflow-hidden text-white antialiased`}>
             <AnimatePresence>
                 <BackgroundImage
+                    key={`${currentSlideData.data.img}-${transitionData.img}`}
                     transitionData={transitionData}
                     currentSlideData={currentSlideData}
 

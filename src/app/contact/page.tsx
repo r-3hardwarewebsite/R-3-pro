@@ -150,7 +150,7 @@ export default function ContactPage() {
           </div>
           <h2 className="text-3xl md:text-4xl font-headline font-bold text-primary">Get in Touch</h2>
           <p className="text-lg text-muted-foreground">
-            We're here to help you with any questions or inquiries. Fill out the form, and we'll get back to you as soon as possible. For immediate assistance, feel free to call us.
+            We&apos;re here to help you with any questions or inquiries. Fill out the form, and we&apos;ll get back to you as soon as possible. For immediate assistance, feel free to call us.
           </p>
           
         </motion.div>

@@ -39,10 +39,6 @@ const ThumbnailItem = ({ src, alt, dataAiHint, isActive, onClick }: { src: strin
     setImgSrc('https://placehold.co/400x400.png');
   };
 
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
-
   return (
     <div
       className={cn("overflow-hidden rounded-md cursor-pointer", isActive ? "ring-2 ring-primary" : "opacity-70 hover:opacity-100")}
@@ -76,10 +72,6 @@ const CarouselImage = ({ src, alt, dataAiHint, isPriority, onLoadingComplete }: 
   const handleError = () => {
     setImgSrc('https://placehold.co/600x600.png');
   };
-
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
 
   return (
     <Image
@@ -129,11 +121,13 @@ export function ProductQuickView({ product, isOpen, onOpenChange }: ProductQuick
 
   // Reset loading state when dialog opens with a new product
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) return;
+
+    queueMicrotask(() => {
       setIsImageLoading(true);
       setCurrent(0);
       mainApi?.scrollTo(0, true);
-    }
+    });
   }, [isOpen, product, mainApi]);
 
   return (
@@ -168,11 +162,12 @@ export function ProductQuickView({ product, isOpen, onOpenChange }: ProductQuick
                 ))}
               </CarouselContent>
             </Carousel>
-            <Carousel setApi={thumbApi} opts={{ align: "start", slidesToScroll: 1, skipSnaps: true, containScroll: 'trimSnaps' }} className="w-full mt-4 shrink-0 px-6 md:px-0">
+            <Carousel setApi={setThumbApi} opts={{ align: "start", slidesToScroll: 1, skipSnaps: true, containScroll: 'trimSnaps' }} className="w-full mt-4 shrink-0 px-6 md:px-0">
               <CarouselContent className="-ml-2 h-full">
                 {product.images.map((src, index) => (
-                  <CarouselItem key={index} className="pl-2 basis-1/4">
+                  <CarouselItem key={src} className="pl-2 basis-1/4">
                     <ThumbnailItem
+                      key={src}
                       src={src}
                       alt={`${product.name} thumbnail ${index + 1}`}
                       dataAiHint={product.dataAiHint}

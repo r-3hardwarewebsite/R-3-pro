@@ -1,14 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/navigation'
+import type { Data } from "@/components/AnimationSlider";
 
 type Props = {
-  data: any;
-  handleData: any;
-  ix: any
+  data: Data;
+  handleData: (ix: number) => void;
+  ix: number;
 };
 
-function SliderCard({ data, handleData, ix }: Props) {
+function SliderCard({ data, ix: _ix }: Props) {
   const navigate = useRouter();
   const changeSlide = () => {
     // handleData(ix)
