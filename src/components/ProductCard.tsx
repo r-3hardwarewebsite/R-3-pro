@@ -145,7 +145,9 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
           <div className="p-4 flex flex-col flex-grow">
             <h3 className="font-headline text-lg font-semibold text-primary truncate">{product.name}</h3>
-            {/* <p className="text-sm text-muted-foreground mt-1">{product.category}</p> */}
+            <p className="mt-2 text-sm leading-5 text-muted-foreground line-clamp-2 min-h-10">
+              {product.description}
+            </p>
 
             {product.tags && product.tags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -157,7 +159,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <div className="flex-grow"></div>
 
-            <div className="flex justify-between items-center mt-3">
+            <div className="flex justify-end items-center mt-3">
               <PriceDisplay price={product.price} />
               <Button asChild variant="ghost" size="icon" className="opacity-0 group-hover:opacity-100 transition-opacity z-10 h-8 w-8">
                 <Link href={`/product/${product.slug}`}>

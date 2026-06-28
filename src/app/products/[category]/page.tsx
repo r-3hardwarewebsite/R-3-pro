@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { getCategory, getProductsBySubcategory, Product, Subcategory, getProductsByCategory, Category } from '@/lib/products';
 import { ProductCard } from '@/components/ProductCard';
-import { notFound, useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { notFound, useSearchParams, useRouter, usePathname, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, Filter, LayoutGrid, List } from 'lucide-react';
 import { FilterSidebar } from '@/components/FilterSidebar';
@@ -20,15 +20,11 @@ import Image from 'next/image';
 import { Tabs as UiTabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-type CategoryPageProps = {
-  params: {
-    category: string;
-  };
-};
-
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default function CategoryPage() {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
+  const categorySlug = params.category as string;
   const searchParams = useSearchParams();
   const subcategoryParam = searchParams.get('subcategory');
   const tagsParam = searchParams.get('tags');
@@ -42,7 +38,6 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const selectedTags = tagsParam ? tagsParam.split(',') : [];
 
   useEffect(() => {
-    const categorySlug = params?.category;
     const categoryData = getCategory(categorySlug);
     setCategory(categoryData);
 
@@ -66,7 +61,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
       setProducts(filteredProducts);
     }
-  }, [params?.category, subcategoryParam, tagsParam, tabParam]);
+  }, [categorySlug, subcategoryParam, tagsParam, tabParam]);
 
 
   if (category === undefined) {

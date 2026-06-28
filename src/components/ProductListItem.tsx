@@ -50,10 +50,8 @@ export function ProductListItem({ product }: ProductListItemProps) {
           <div className="p-6 sm:w-2/3 flex flex-col">
             <h3 className="font-headline text-xl font-semibold text-primary">{product.name}</h3>
             <p className="text-sm text-muted-foreground mt-1">{product.category} / {product.subcategory}</p>
-            <div className="my-4">
-              <PriceDisplay price={product.price} />
-            </div>
-            <p className="text-muted-foreground text-sm line-clamp-3 flex-grow">
+            <PriceDisplay price={product.price} />
+            <p className="text-muted-foreground text-sm leading-5 line-clamp-2 min-h-10 flex-grow">
               {product.description}
             </p>
             <div className="mt-4">

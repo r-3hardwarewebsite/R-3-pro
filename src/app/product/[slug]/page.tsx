@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProduct, getProductsByCategory, Product } from '@/lib/products';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Carousel,
@@ -21,12 +21,6 @@ import { cn } from '@/lib/utils';
 import { PriceDisplay } from '@/components/PriceDisplay';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-
-type ProductPageProps = {
-  params: {
-    slug: string;
-  };
-};
 
 const ThumbnailItem = ({ src, alt, dataAiHint, isActive, onClick }: { src: string, alt: string, dataAiHint: string, isActive: boolean, onClick: () => void }) => {
   const [isThumbLoading, setIsThumbLoading] = useState(true);
@@ -92,7 +86,9 @@ const CarouselImage = ({ src, alt, dataAiHint, isPriority, onLoadingComplete }: 
   );
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage() {
+  const params = useParams();
+  const slug = params.slug as string;
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [mainApi, setMainApi] = useState<CarouselApi>();
@@ -103,7 +99,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [bannerImgSrc, setBannerImgSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    const productData = getProduct(params.slug);
+    const productData = getProduct(slug);
     if (productData) {
       setProduct(productData);
       setBannerImgSrc(productData.images[0]);
@@ -113,7 +109,7 @@ export default function ProductPage({ params }: ProductPageProps) {
       setRelatedProducts(related);
     }
     setLoading(false);
-  }, [params.slug]);
+  }, [slug]);
 
   useEffect(() => {
     if (!mainApi || !thumbApi) {
@@ -252,9 +248,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
           <div className="lg:col-span-3">
             <h1 className="text-4xl lg:text-5xl font-headline font-bold text-primary">{product.name}</h1>
-            <div className="mt-2">
-              <PriceDisplay price={product.price} />
-            </div>
+            <PriceDisplay price={product.price} />
             <Separator className="my-6" />
             <p className="text-lg text-muted-foreground leading-relaxed">{product.description}</p>
             <Separator className="my-6" />

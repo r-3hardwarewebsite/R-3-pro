@@ -2,6 +2,7 @@
 "use client";
 
 import { useCurrency } from '@/context/CurrencyContext';
+import { SHOW_PRICES } from '@/lib/siteConfig';
 
 interface PriceDisplayProps {
   price: number;
@@ -9,6 +10,11 @@ interface PriceDisplayProps {
 
 export function PriceDisplay({ price }: PriceDisplayProps) {
   const { formatPrice } = useCurrency();
+
+  if (!SHOW_PRICES) {
+    return null;
+  }
+
   const salePrice = price * 2;
 
   return (

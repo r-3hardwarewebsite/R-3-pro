@@ -7,6 +7,7 @@ import { DollarSign, IndianRupee, Euro } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { SHOW_PRICES } from "@/lib/siteConfig";
 
 const currencyInfo = {
   INR: { icon: <IndianRupee className="h-5 w-5" />, symbol: "₹", name: 'INR' },
@@ -17,6 +18,10 @@ const currencyInfo = {
 export function CurrencySwitcher() {
   const { currency, nextCurrency, toggleCurrency } = useCurrency();
   const [isHovered, setIsHovered] = useState(false);
+
+  if (!SHOW_PRICES) {
+    return null;
+  }
 
   return (
     <motion.div

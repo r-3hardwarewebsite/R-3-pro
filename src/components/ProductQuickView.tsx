@@ -186,9 +186,7 @@ export function ProductQuickView({ product, isOpen, onOpenChange }: ProductQuick
           </div>
           <div className="p-6 flex flex-col overflow-y-auto order-2 md:order-2 flex-grow min-h-0">
             <h2 className="text-3xl font-headline font-bold text-primary">{product.name}</h2>
-            <div className="mt-2">
-              <PriceDisplay price={product.price} />
-            </div>
+            <PriceDisplay price={product.price} />
             <Separator className="my-4" />
             <p className="text-base text-muted-foreground leading-relaxed">
               {product.description}
